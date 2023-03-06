@@ -1,0 +1,22 @@
+{
+  "name": "東カレ自動いいねツール",
+  "description": "東カレで足跡をつけながら、特定のユーザーにいいねを自動送信するツールです",
+  "version": "1.0.2.0",
+  "manifest_version": 3,
+  "permissions": [
+    "activeTab",
+    "scripting",
+	"storage",
+	"tabs"
+  ],
+  "action": {
+    "default_title": "東カレ自動いいねツール",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://tokyo-calendar-date.jp/search/list*"],
+      "js": ["content.js","jquery-3.4.0.min.js"]
+    }
+  ]
+}

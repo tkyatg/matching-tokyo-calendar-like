@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>東カレいいねツール</title>
+		<link rel="stylesheet" href="popup.css">
+	</head>
+
+	<body>
+		<div id="app">
+			<h1>東カレ自動いいねツール</h1>
+			<table class="main-table">
+				<tbody>
+					<tr>
+						<td>「オンライン」にいいね</td>
+						<td align="center"><input type="checkbox" name="online" value="1" class="lcs_check" autocomplete="off"/></td>
+					</tr>
+					<tr>
+						<td>「24時間以内」にいいね</td>
+						<td  align="center"><input type="checkbox" name="recentLogin" value="1" class="lcs_check" autocomplete="off"/></td>
+					</tr>
+					<tr>
+						<td>「New」にいいね</td>
+						<td  align="center"><input type="checkbox" name="newUser" value="1" class="lcs_check" autocomplete="off"/></td>
+					</tr>
+					<tr>
+					<td>自動停止</td>
+					<td  align="center"><input type="number" min="0" max="99999" class="limit-count" name="limitCount" value="1000"/>足跡</td>
+					</tr>
+				</tbody>
+			</table>
+			<input type='button' id='start-button' value='開始'>
+		</div>
+		<script src='jquery-3.4.0.min.js'></script>
+		<script src='lc_switch.min.js'></script>
+		<script src='popup.js'></script>
+	</body>
+</html>
