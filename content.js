@@ -1,4 +1,6 @@
-async function online_like(param) {
+let stop = true;
+
+async function online_like() {
   function sleep(msec) {
     return new Promise(function (resolve) {
       setTimeout(function () {
@@ -7,10 +9,8 @@ async function online_like(param) {
     });
   }
 
-  jq = $;
-
   while (true) {
-    for (var i = 0; i < param.limitCount; i++) {
+    for (var i = 0; i < 999999; i++) {
       console.log(i);
       let link = document.querySelectorAll("#matchableUsers .radius0")[i];
       if (!link) {
@@ -22,7 +22,6 @@ async function online_like(param) {
       if (stop) {
         return;
       }
-
       // いいねボタンがある
       if (
         document.querySelectorAll("#user_buttons div a").length === 1 &&
@@ -37,19 +36,7 @@ async function online_like(param) {
         }
       }
     }
-
-    function profile_close() {
-      $("#userProfile").hide();
-      $("#mainContent").show();
-      $("html,body").scrollTop(0, ((i - 1) * 245) / 2);
-      $(window).data("loading", false);
-      // jq('a.hmenu_close').trigger('click')
-      // jq('a.hmenu_close')[0].dispatchEvent(new MouseEvent("click"));
-    }
-    // profile_close()
     document.getElementsByClassName("hmenu_close")[1].click();
-
-    scrollTo(0, (i * 245) / 2);
 
     await sleep(1000 + Math.random() * 500);
     if (stop) {
@@ -60,26 +47,16 @@ async function online_like(param) {
   }
 }
 
-let stop = true;
-let param = {
-  online: true,
-  recentLogin: true,
-  newUser: false,
-  limitCount: 1000,
-};
-
-// popup.jsからの開始、停止メッセージの受信
+// popup.js からの開始、停止メッセージの受信
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   console.log(request.message);
   if (request.message === "isStarted") {
-    sendResponse({ stop, param });
+    sendResponse({ stop });
   }
 
   if (stop && request.message === "start") {
-    console.log(request.param); // {online: false, recentLogin: false, newUser: false}
     stop = false;
-    param = request.param;
-    online_like(request.param);
+    online_like();
   }
   if (request.message === "stop") {
     stop = true;
