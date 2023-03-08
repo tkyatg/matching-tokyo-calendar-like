@@ -11,9 +11,6 @@ async function online_like(param) {
       }, msec);
     });
   }
-
-  jq = $;
-
   while (true) {
     for (var i = 0; i < param.likeLimit; i++) {
       let link = document.querySelectorAll("#matchableUsers .radius0")[i];
@@ -54,9 +51,9 @@ async function online_like(param) {
   }
 }
 
-// popup.jsからの開始、停止メッセージの受信
+// index.jsからの開始、停止メッセージの受信
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.message === "isStarted") {
+  if (request.message === "starting") {
     sendResponse({ stop, param });
   }
 
