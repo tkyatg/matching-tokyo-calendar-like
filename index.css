@@ -24,16 +24,6 @@ span{
 	font-size: 14px;
 }
 
-input {
-	background: #2d2a22;
-	color: #BFA978 !important;
-	font-size: 16px;
-	padding: 4px 8px;
-	border: solid 1px #BFA978;
-	border-radius: 4px;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-}
 
 .logo{
 	width: 100%;
@@ -49,6 +39,17 @@ input {
 
 .mt-6{
 	margin-top: 8px;
+}
+
+input{
+	background: #2d2a22;
+	color: #BFA978 !important;
+	font-size: 16px;
+	padding: 4px 8px;
+	border: solid 1px #BFA978;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
 }
 
 #startBtn{

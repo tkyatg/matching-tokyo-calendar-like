@@ -12,6 +12,8 @@ async function online_like(param) {
     });
   }
 
+  jq = $;
+
   while (true) {
     for (var i = 0; i < param.likeLimit; i++) {
       let link = document.querySelectorAll("#matchableUsers .radius0")[i];
@@ -37,8 +39,11 @@ async function online_like(param) {
           return;
         }
       }
+
       document.getElementsByClassName("hmenu_close")[1].click();
+
       scrollTo(0, (i * 245) / 2);
+
       await sleep(1000 + Math.random() * 500);
       if (stop) {
         return;
@@ -49,9 +54,9 @@ async function online_like(param) {
   }
 }
 
-// index.jsからの開始、停止メッセージの受信
+// popup.jsからの開始、停止メッセージの受信
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.message === "starting") {
+  if (request.message === "isStarted") {
     sendResponse({ stop, param });
   }
 
