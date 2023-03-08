@@ -1,51 +1,30 @@
 let enabled = false;
 
-// 起動時の処理
-// content_scriptが実行中か確認する
-chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-  chrome.tabs.sendMessage(tabs[0].id, { message: "starting" }, function (item) {
-    if (item && !item.stop) {
+// start / stop 受信
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.message === "starting") {
+    const { stop, param } = request;
+    if (!stop) {
       $("#startBtn")[0].value = "とめる";
       $(".likeLimit").prop("disabled", true);
     }
-
-    setTimeout(function () {
-      if (item) {
-        $(".likeLimit").val(item.param.likeLimit);
-      } else {
-        $(".likeLimit").val(1000);
-      }
-    }, 10);
-  });
+    $(".likeLimit").val(param.likeLimit);
+  }
+  sendResponse();
 });
 
-// 開始ボタンクリック
-$("#startBtn").on("click", function (event) {
+// ボタンクリック
+$("#startBtn").on("click", function () {
   const likeLimit = parseInt($(".likeLimit").val());
   const param = { likeLimit };
-  if (!enabled) {
-    // 開始状態にする
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      chrome.tabs.sendMessage(
-        tabs[0].id,
-        { message: "start", param },
-        function (item) {}
-      );
-    });
-    enabled = true;
-    $("#startBtn")[0].value = "とめる";
-    $(".likeLimit").prop("disabled", true);
-  } else {
-    // 停止状態にする
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      chrome.tabs.sendMessage(
-        tabs[0].id,
-        { message: "stop" },
-        function (item) {}
-      );
-    });
-    enabled = false;
-    $("#startBtn")[0].value = "はじめる";
-    $(".likeLimit").prop("disabled", false);
-  }
+  const message = enabled ? "stop" : "start";
+
+  // content_scriptにメッセージを送信する
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, { message, param }, function () {});
+  });
+
+  enabled = !enabled;
+  $("#startBtn")[0].value = enabled ? "とめる" : "はじめる";
+  $(".likeLimit").prop("disabled", enabled);
 });
