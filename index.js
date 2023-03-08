@@ -19,7 +19,6 @@ $("#startBtn").on("click", function () {
   const param = { likeLimit };
   const message = enabled ? "stop" : "start";
 
-  // content_scriptにメッセージを送信する
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, { message, param }, function () {});
   });

@@ -1,8 +1,11 @@
 {
   "name": "東カレ自動いいね",
-  "description": "東カレで自動いいねを送信!",
+  "description": "東カレでいいねを自動送信して、たくさんの相手とマッチしよう！",
   "version": "1.0.0",
   "manifest_version": 3,
+  "icons": {
+    "128": "icon.png"
+  },
   "permissions": [
     "activeTab",
     "scripting",
@@ -10,7 +13,10 @@
     "tabs"
   ],
   "action": {
-    "default_title": "東カレ自動いいねツール",
+    "default_icon": {
+      "128": "icon.png"
+    },
+    "default_title": "東カレ自動いいね",
     "default_popup": "popup.html"
   },
   "content_scripts": [
