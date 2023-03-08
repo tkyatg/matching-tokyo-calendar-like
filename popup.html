@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>東カレいいねツール</title>
-    <link rel="stylesheet" href="popup.css" />
+    <link rel="stylesheet" href="index.css" />
   </head>
 
   <body>
@@ -19,18 +19,18 @@
                 type="number"
                 min="0"
                 max="99999"
-                class="limit-count"
-                name="limitCount"
+                class="likeLimit"
+                name="likeLimit"
                 value="1000"
               /><span class="text-white ml-4">いいね</span>
             </td>
           </tr>
         </tbody>
       </table>
-      <input type="button" id="start-button" class="mt-6" value="はじめる" />
+      <input type="button" id="startBtn" class="mt-6" value="はじめる" />
     </main>
     <script src="jquery-3.4.0.min.js"></script>
     <script src="lc_switch.min.js"></script>
-    <script src="popup.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>

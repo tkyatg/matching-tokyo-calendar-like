@@ -1,6 +1,6 @@
 let stop = true;
 let param = {
-  limitCount: 1000,
+  likeLimit: 1000,
 };
 
 async function online_like(param) {
@@ -15,8 +15,7 @@ async function online_like(param) {
   jq = $;
 
   while (true) {
-    for (var i = 0; i < param.limitCount; i++) {
-      console.log(i);
+    for (var i = 0; i < param.likeLimit; i++) {
       let link = document.querySelectorAll("#matchableUsers .radius0")[i];
       if (!link) {
         continue;
@@ -57,13 +56,11 @@ async function online_like(param) {
 
 // popup.jsからの開始、停止メッセージの受信
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log(request.message);
   if (request.message === "isStarted") {
     sendResponse({ stop, param });
   }
 
   if (stop && request.message === "start") {
-    console.log(request.param);
     stop = false;
     param = request.param;
     online_like(request.param);

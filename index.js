@@ -5,13 +5,6 @@ lc_switch("input[type=checkbox], input[type=radio]", {
   compact_mode: true,
 });
 
-function disableInputs() {
-  $(".limit-count").prop("disabled", true);
-}
-function enableInputs() {
-  $(".limit-count").prop("disabled", false);
-}
-
 let enabled = false;
 
 // 起動時の処理
@@ -21,26 +14,26 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     tabs[0].id,
     { message: "isStarted" },
     function (item) {
-      console.log(item);
-      if (!item.stop) {
-        $("#start-button")[0].value = "とめる";
-        disableInputs();
+      if (item && !item.stop) {
+        $("#startBtn")[0].value = "とめる";
+        $(".likeLimit").prop("disabled", true);
       }
 
       setTimeout(function () {
-        $(".limit-count").val(item.param.limitCount);
+        if (item) {
+          $(".likeLimit").val(item.param.likeLimit);
+        } else {
+          $(".likeLimit").val(1000);
+        }
       }, 10);
     }
   );
 });
 
-// 初期ではオンラインにチェックを入れる
-// $('input[name="online"]').prop('checked',true)
-
 // 開始ボタンクリック
-$("#start-button").on("click", function (event) {
-  const limitCount = parseInt($(".limit-count").val());
-  const param = { limitCount };
+$("#startBtn").on("click", function (event) {
+  const likeLimit = parseInt($(".likeLimit").val());
+  const param = { likeLimit };
   if (!enabled) {
     // 開始状態にする
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -51,8 +44,8 @@ $("#start-button").on("click", function (event) {
       );
     });
     enabled = true;
-    $("#start-button")[0].value = "とめる";
-    disableInputs();
+    $("#startBtn")[0].value = "とめる";
+    $(".likeLimit").prop("disabled", true);
   } else {
     // 停止状態にする
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -63,7 +56,7 @@ $("#start-button").on("click", function (event) {
       );
     });
     enabled = false;
-    $("#start-button")[0].value = "はじめる";
-    enableInputs();
+    $("#startBtn")[0].value = "はじめる";
+    $(".likeLimit").prop("disabled", false);
   }
 });
