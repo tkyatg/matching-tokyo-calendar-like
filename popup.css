@@ -1,20 +1,49 @@
 body{
-	width:300px;
+	width:320px;
 	background-color: #000;
 	margin: 8px;
 }
 
 p{
-	color: white;
 	font-size: 14px;
+}
+
+span{
+	font-size: 14px;
+}
+
+table {
+	width: 100%;
+}
+
+tbody {
+	width: 100%;
+}
+
+input{
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-radius: 6px;
+	border: solid 1px #BFA978;
+	font-size: 14px;
+}
+
+.text-white {
+	color: white;
 }
 
 .logo{
 	width: 50%;
 }
 
-.mt{
-	margin-top: 4px;
+.mt-3{
+	margin-top: 3px;
+}
+
+.mt-6 {
+	margin-top: 6px;
 }
 
 #start-button{
